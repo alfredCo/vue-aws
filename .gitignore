@@ -1,0 +1,6 @@
+node_modules
+built
+.idea/
+.vscode
+npm-debug.log
+sftp-config.json

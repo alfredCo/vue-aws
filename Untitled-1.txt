@@ -1,0 +1,59 @@
+  1 let webpack = require('webpack')
+  2 let ExtractTextPlugin = require('extract-text-webpack-plugin')
+  3 let HTMLWebpackPlugin = require('html-webpack-plugin')
+  4 let path = require('path')
+  5 let fs = require('fs')
+  6 let glob = require('glob')
+  7
+  8
+  9 let tpl = glob.sync('./src/shadow/tpl/**/*.html')
+ 10     .map(t => {
+ 11         let _ = t.replace(/^\.\/src\/shadow\//,
+ 12             `ng-cache-loader?-minimize&prefix=${Array(t.split('/').length - 4).fill('*').join('/')}!./`)
+ 13         return _
+ 14     })
+ 15 module.exports = {
+ 16     context: path.resolve(__dirname, 'src/shadow'),
+ 17     entry: {
+ 18         app: [
+ 19             './js/app.js',
+ 20             './style/app.less'
+ 21         ].concat(tpl),
+ 22     },
+ 23     output: {
+ 24         path: path.resolve(__dirname, '../www/share/public/shadow'),
+ 25         publicPath: '',
+ 26         filename: 'js/[name].js'
+ 27     },
+ 28     devtool: 'source-map',
+ 29     module: {
+ 30         rules:[
+ 31             {
+ 32                 test: /\.js$/,
+ 33                 exclude: /node_modules/,
+ 34                 loader: 'babel-loader'
+ 35             },
+ 36             {
+ 37                 test: /\.js$/,
+ 38                 exclude: /node_modules/,
+ 39                 loader: 'eslint-loader',
+ 40                 enforce: 'pre'
+ 41             },
+ 42             {
+ 43                 test: /\.gif|png|jpg|jpeg|svg|ttf|woff2?|eot/,
+ 44                 loader: 'file-loader?outputPath=img/&name=../img/[name].[hash].[ext]'
+ 45             },
+ 46             {
+ 47                 test: /\.less$/,
+ 48                 loader: ExtractTextPlugin.extract(['css-loader', 'less-loader'])
+ 49             }
+ 50         ]
+ 51     },
+ 52     plugins: [
+ 53         new webpack.ProvidePlugin({
+ 54             jQuery: 'jquery',
+ 55             $: 'jquery',
+ 56             'window.jQuery': 'jquery'
+ 57         }),
+ 58         new ExtractTextPlugin({
+ 59             filename: 'css/[name].css'

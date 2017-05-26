@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="app" ng-cloak>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no, email=no, adress=no" />
+    <!--  <title  ng-bind="pathTitle +' - ' + siteTitle"></title> -->
+    <title  ng-bind="pathTitle"></title>
+    <!--<script src="js/vue.min.js"></script>
+    <script src="js/vue-router.min.js"></script>-->
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="bookmark" href="/favicon.ico"/>
+</head>
+<body class="logined">
+  <div id="app">
+    <header>
+        <div class="container inner">
+        <div class="logo">
+          <a ng-href="/"></a>
+        </div>
+      </div>
+    </header>
+    <div class="main clearfix open">
+      <!-- 主导航 start -->
+      <aside toggle-nav>
+        <span class="toggle-icon"><i class="icon-aw-angle-double-right"></i></span>
+        <ul>
+          <li><router-link to="/">aaaaafff</router-link></li>
+          <li><router-link to="/dd">aaddaaa</router-link></li>
+          <li><router-link to="/cc">aaccaaa</router-link></li>
+        </ul>
+      </aside>
+      <div class="main-content">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+
+<!--[if lte IE 9]>
+<script>
+    $(document).ready(function(){
+        $('#it-tips').removeClass('hide');
+        $('#it-tips .close').on('click',function(){
+            $(this).parent().addClass('ie-show');
+        })
+    })
+</script>
+<![endif]-->
+</body>
+</html>
